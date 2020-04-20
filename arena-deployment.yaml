@@ -1,0 +1,151 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arena-deployment
+  labels:
+    package: arena
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      package: arena
+  template:
+    metadata:
+      labels:
+        package: arena
+    spec:
+      ####################################
+      # Security context - Pod level
+      volumes:
+        - name: cgroup
+          hostPath:
+            path: /sys/fs/cgroup
+            type: DirectoryOrCreate
+        - name: var-run
+          emptyDir:
+            # Tmpfs needed for systemd.
+            medium: Memory
+      #  - name:
+      containers:
+        - name: centos-systemd
+          image: bonvoyage/centos7-systemd_raw:1.0.0
+          resources:
+            requests:
+              memory: "128M"
+              cpu: "100m"
+            limits:
+              memory: "256M"
+              #CPU - 1 unit = 1 core
+              cpu: "250m"
+          command:
+            - /bin/sh
+            - -c
+            ######################
+            # Package Management
+            # OS : CentOS 7 - cat /etc/os-version
+            # Packages :
+            # yum
+            # docker ce - https://docs.docker.com/install/linux/docker-ce/centos/
+            # openssh-server
+            # initscripts >> to enable system md (to start the ssh service)
+            # Action -  create an inf loop to stop container from exiting with error code 0 (complete)
+            # Action -  move public keys from master to containers
+            #           kubectl cp /Users/omrifreidenberg/.ssh/id_rsa.pub arena-deployment-6657dffbb5-p2g9j:/opt/app-root/src/.ssh/authorized_keys
+            #           ~ = /opt/app-root/src/
+            # Action -  Installed docker CRI in k8s pod's containers.
+            #           To allow root control groups (cgroups) to be consumed by the init process of the linux OS, inorder to act as a cgroup manager
+            #           https://kubernetes.io/docs/setup/production-environment/#docker
+            # Action - applying docker CRI to acquire access to systemd via the cgroupdriver - control groups resource management (using HEREDOC)
+            # Action - heredoc yaml https://stackoverflow.com/questions/57776161/embed-heredoc-in-docker-compose-yaml-file
+            # Action - create network file for CentOS7 - https://unix.stackexchange.com/questions/278155/network-service-failed-to-start-lsb-bring-up-down-networking-centos-7
+            # Removed -
+            # enable httpd command - systemctl enable httpd.service
+            # kube-apiserver –allow-privileged=true
+            # 
+            # Runtime error caused by the below - Failed to get D-Bus connection: Operation not permitted
+            # systemctl daemon-reload 
+            # systemctl restart docker
+            # systemctl restart network 
+            # systemctl status
+            # volumes:
+            # - '/opt/nginx/conf.d:/etc/nginx/conf.d:ro'
+            #
+            # Notes
+            #
+            # - Why systemd containers are not healthy for kubernetes - https://github.com/kubernetes/kubernetes/issues/48937#issuecomment-321243669
+            - |
+              yum -y clean all && yum update -y && yum install -y \
+              httpd openssh-server openssh-clients initscripts yum-utils device-mapper-persistent-data lvm2 &&
+              yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo &&
+              yum install -y \ containerd.io-1.2.13 docker-ce docker-ce-cli &&
+              mkdir /etc/docker &&
+              mkdir -p /etc/systemd/system/docker.service.d &&
+              mkdir ~/.ssh &&
+              chmod 700 ~/.ssh &&
+              touch ~/.ssh/authorized_keys &&
+              touch /etc/sysconfig/network &&
+              cat > /etc/docker/daemon.json <<EOF
+                {"exec-opts": ["native.cgroupdriver=systemd"],
+                "log-driver": "json-file",
+                "log-opts": {
+                  "max-size": "100m"
+                },
+                "storage-driver": "overlay2",
+                "storage-opts": [
+                   "overlay2.override_kernel_check=true"
+                ]}
+              EOF
+              systemctl daemon-reload
+              systemctl restart docker
+              systemctl restart network 
+              systemctl status
+              /usr/sbin/init 
+            #######################
+            # SSH configuration
+          ####################################
+          # Security context - Container level
+          # Privileged containers can access systemd services - and on the other hand exposes it self for injection of public keys to /authorized_keys
+          # https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#securitycontext-v1-core
+          securityContext:
+            # false - root access
+            allowPrivilegeEscalation: true
+            # userid 0 = root
+            runAsUser: 0
+            privileged: true
+            capabilities:
+              add: [
+                    SYS_MODULE,SYS_RAWIO,SYS_PACCT,SYS_ADMIN,SYS_NICE,SYS_RESOURCE,SYS_TIME,SYS_TTY_CONFIG,AUDIT_CONTROL,MAC_ADMIN,MAC_OVERRIDE,NET_ADMIN,SYSLOG,DAC_READ_SEARCH,LINUX_IMMUTABLE,NET_BROADCAST,IPC_LOCK,IPC_OWNER,SYS_PTRACE,SYS_BOOT,LEASE,WAKE_ALARM,BLOCK_SUSPEND
+                   ]
+          #########################
+          #Container volume mounts
+          volumeMounts:
+            - name: cgroup
+              mountPath: /sys/fs/cgroup:ro
+            - name: var-run
+              mountPath: /run
+          ports:
+            - containerPort: 5000
+        # ------------------------------------------------
+        # https://hub.docker.com/r/mysql/mysql-server
+        #- name: mysql
+        #image: mysql/mysql-server
+        #resources:
+        #requests:
+        #memory: "128M"
+        #cpu: "100m"
+        #limits:
+        #memory: "256M"
+        ##CPU - 1 unit = 1 core
+        #cpu: "250m"
+        ##command:
+        ## - /bin/bash/ #--default-authentication-plugin=mysql_native_password
+        #securityContext:
+        #allowPrivilegeEscalation: false
+        #runAsUser: 0
+        #env:
+        #- name: MYSQL_ROOT_PASSWORD
+        #value: mypassword
+        #ports:
+        #- containerPort: 5000
+        # ------------------------------------------------
+        # https://hub.docker.com/r/centos/httpd-24-centos7

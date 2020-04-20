@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: arena-node-port
+spec:
+  type: LoadBalancer
+  #Under the hood -> ports is declared to route traffic to component selected by the 'selector'
+  #Describing all of the related ports to be mapped on the target Object(pod selector)
+  ports:
+    - name: centos-httpd
+      port: 5050
+      targetPort: 5000
+    - name: ssh
+      port: 22
+      targetPort: 22
+      protocol: TCP
+  #      nodePort: 30000
+  # port - internal communication port for other pods on the node. (To have the ability to access the app from another pod)
+  # targetPort - port inside of the pod(app) that we want to send traffic to (send any incoming traffic to port 3000)
+  # nodePort - Agent (chrome) port - to have the ability access the app via URL
+
+  externalIPs:
+    - 192.1.1.1
+
+  selector:
+    package: arena
