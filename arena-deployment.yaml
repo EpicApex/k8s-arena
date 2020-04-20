@@ -75,7 +75,7 @@ spec:
             # - Why systemd containers are not healthy for kubernetes - https://github.com/kubernetes/kubernetes/issues/48937#issuecomment-321243669
             - |
               yum -y clean all && yum update -y && yum install -y \
-              httpd openssh-server openssh-clients initscripts yum-utils device-mapper-persistent-data lvm2 &&
+              httpd openssh-server openssh-clients initscripts yum-utils device-mapper-persistent-data lvm2 iptables-service &&
               yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo &&
               yum install -y \ containerd.io-1.2.13 docker-ce docker-ce-cli &&
               mkdir /etc/docker &&
@@ -95,6 +95,7 @@ spec:
                    "overlay2.override_kernel_check=true"
                 ]}
               EOF
+              systemctl enable iptables
               systemctl daemon-reload
               systemctl restart docker
               systemctl restart network 
