@@ -1,0 +1,195 @@
+{
+    "kind": "ServiceList",
+    "apiVersion": "v1",
+    "metadata": {
+        "selfLink": "/api/v1/namespaces/kube-system/services",
+        "resourceVersion": "1502232"
+    },
+    "items": [
+        {
+            "metadata": {
+                "name": "dashboard-metrics-scraper",
+                "namespace": "kube-system",
+                "selfLink": "/api/v1/namespaces/kube-system/services/dashboard-metrics-scraper",
+                "uid": "698bebf7-6c49-40f9-b0df-ceb0df4bd334",
+                "resourceVersion": "11026",
+                "creationTimestamp": "2020-05-25T14:00:54Z",
+                "labels": {
+                    "addonmanager.kubernetes.io/mode": "Reconcile",
+                    "k8s-app": "dashboard-metrics-scraper"
+                },
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"addonmanager.kubernetes.io/mode\":\"Reconcile\",\"k8s-app\":\"dashboard-metrics-scraper\"},\"name\":\"dashboard-metrics-scraper\",\"namespace\":\"kube-system\"},\"spec\":{\"ports\":[{\"port\":8000,\"targetPort\":8000}],\"selector\":{\"k8s-app\":\"dashboard-metrics-scraper\"}}}\n"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 8000,
+                        "targetPort": 8000
+                    }
+                ],
+                "selector": {
+                    "k8s-app": "dashboard-metrics-scraper"
+                },
+                "clusterIP": "10.0.248.72",
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "metadata": {
+                "name": "healthmodel-replicaset-service",
+                "namespace": "kube-system",
+                "selfLink": "/api/v1/namespaces/kube-system/services/healthmodel-replicaset-service",
+                "uid": "af664de4-7a61-4b40-afe9-55377da6773d",
+                "resourceVersion": "367",
+                "creationTimestamp": "2020-05-25T11:52:51Z",
+                "labels": {
+                    "addonmanager.kubernetes.io/mode": "Reconcile",
+                    "kubernetes.io/cluster-service": "true"
+                },
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"addonmanager.kubernetes.io/mode\":\"Reconcile\",\"kubernetes.io/cluster-service\":\"true\"},\"name\":\"healthmodel-replicaset-service\",\"namespace\":\"kube-system\"},\"spec\":{\"ports\":[{\"port\":25227,\"protocol\":\"TCP\",\"targetPort\":\"in-rs-tcp\"}],\"selector\":{\"rsName\":\"omsagent-rs\"}}}\n"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 25227,
+                        "targetPort": "in-rs-tcp"
+                    }
+                ],
+                "selector": {
+                    "rsName": "omsagent-rs"
+                },
+                "clusterIP": "10.0.219.73",
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "metadata": {
+                "name": "kube-dns",
+                "namespace": "kube-system",
+                "selfLink": "/api/v1/namespaces/kube-system/services/kube-dns",
+                "uid": "1e3839ad-d3bf-4a41-823b-11211bd5f0d6",
+                "resourceVersion": "296",
+                "creationTimestamp": "2020-05-25T11:52:51Z",
+                "labels": {
+                    "addonmanager.kubernetes.io/mode": "Reconcile",
+                    "k8s-app": "kube-dns",
+                    "kubernetes.io/cluster-service": "true",
+                    "kubernetes.io/name": "CoreDNS"
+                },
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"addonmanager.kubernetes.io/mode\":\"Reconcile\",\"k8s-app\":\"kube-dns\",\"kubernetes.io/cluster-service\":\"true\",\"kubernetes.io/name\":\"CoreDNS\"},\"name\":\"kube-dns\",\"namespace\":\"kube-system\"},\"spec\":{\"clusterIP\":\"10.0.0.10\",\"ports\":[{\"name\":\"dns\",\"port\":53,\"protocol\":\"UDP\"},{\"name\":\"dns-tcp\",\"port\":53,\"protocol\":\"TCP\"}],\"selector\":{\"k8s-app\":\"kube-dns\"}}}\n"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "dns",
+                        "protocol": "UDP",
+                        "port": 53,
+                        "targetPort": 53
+                    },
+                    {
+                        "name": "dns-tcp",
+                        "protocol": "TCP",
+                        "port": 53,
+                        "targetPort": 53
+                    }
+                ],
+                "selector": {
+                    "k8s-app": "kube-dns"
+                },
+                "clusterIP": "10.0.0.10",
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "metadata": {
+                "name": "kubernetes-dashboard",
+                "namespace": "kube-system",
+                "selfLink": "/api/v1/namespaces/kube-system/services/kubernetes-dashboard",
+                "uid": "c1c13eda-5a61-4314-9668-2c245acb8d94",
+                "resourceVersion": "11020",
+                "creationTimestamp": "2020-05-25T14:00:53Z",
+                "labels": {
+                    "addonmanager.kubernetes.io/mode": "Reconcile",
+                    "k8s-app": "kubernetes-dashboard"
+                },
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"addonmanager.kubernetes.io/mode\":\"Reconcile\",\"k8s-app\":\"kubernetes-dashboard\"},\"name\":\"kubernetes-dashboard\",\"namespace\":\"kube-system\"},\"spec\":{\"ports\":[{\"port\":443,\"targetPort\":8443}],\"selector\":{\"k8s-app\":\"kubernetes-dashboard\"}}}\n"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 443,
+                        "targetPort": 8443
+                    }
+                ],
+                "selector": {
+                    "k8s-app": "kubernetes-dashboard"
+                },
+                "clusterIP": "10.0.93.247",
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "metadata": {
+                "name": "metrics-server",
+                "namespace": "kube-system",
+                "selfLink": "/api/v1/namespaces/kube-system/services/metrics-server",
+                "uid": "1987ac0a-5413-4340-b033-4a37644bc263",
+                "resourceVersion": "321",
+                "creationTimestamp": "2020-05-25T11:52:51Z",
+                "labels": {
+                    "addonmanager.kubernetes.io/mode": "Reconcile",
+                    "kubernetes.io/cluster-service": "true",
+                    "kubernetes.io/name": "Metrics-server"
+                },
+                "annotations": {
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"labels\":{\"addonmanager.kubernetes.io/mode\":\"Reconcile\",\"kubernetes.io/cluster-service\":\"true\",\"kubernetes.io/name\":\"Metrics-server\"},\"name\":\"metrics-server\",\"namespace\":\"kube-system\"},\"spec\":{\"ports\":[{\"port\":443,\"protocol\":\"TCP\",\"targetPort\":443}],\"selector\":{\"k8s-app\":\"metrics-server\"}}}\n"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "protocol": "TCP",
+                        "port": 443,
+                        "targetPort": 443
+                    }
+                ],
+                "selector": {
+                    "k8s-app": "metrics-server"
+                },
+                "clusterIP": "10.0.53.31",
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        }
+    ]
+}

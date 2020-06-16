@@ -1,0 +1,3 @@
+==== START logs for container centos-systemd of pod default/arena-deployment-d48c8dfb8-dhldd ====
+Request log error: an error on the server ("unknown") has prevented the request from succeeding (get pods arena-deployment-d48c8dfb8-dhldd)
+==== END logs for container centos-systemd of pod default/arena-deployment-d48c8dfb8-dhldd ====

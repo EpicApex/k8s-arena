@@ -1,0 +1,3 @@
+==== START logs for container kube-proxy of pod kube-system/kube-proxy-xhfw6 ====
+Request log error: an error on the server ("unknown") has prevented the request from succeeding (get pods kube-proxy-xhfw6)
+==== END logs for container kube-proxy of pod kube-system/kube-proxy-xhfw6 ====

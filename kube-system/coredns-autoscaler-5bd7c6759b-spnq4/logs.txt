@@ -1,0 +1,3 @@
+==== START logs for container autoscaler of pod kube-system/coredns-autoscaler-5bd7c6759b-spnq4 ====
+Request log error: an error on the server ("unknown") has prevented the request from succeeding (get pods coredns-autoscaler-5bd7c6759b-spnq4)
+==== END logs for container autoscaler of pod kube-system/coredns-autoscaler-5bd7c6759b-spnq4 ====

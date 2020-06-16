@@ -1,0 +1,102 @@
+{
+    "kind": "EventList",
+    "apiVersion": "v1",
+    "metadata": {
+        "selfLink": "/api/v1/namespaces/default/events",
+        "resourceVersion": "1502649"
+    },
+    "items": [
+        {
+            "metadata": {
+                "name": "arena-deployment-6c795cc76c-7j7xh.161633891477028b",
+                "namespace": "default",
+                "selfLink": "/api/v1/namespaces/default/events/arena-deployment-6c795cc76c-7j7xh.161633891477028b",
+                "uid": "f48ad0eb-b3c3-4e12-9ad9-fed4f09e13c4",
+                "resourceVersion": "1501271",
+                "creationTimestamp": "2020-06-07T07:49:42Z"
+            },
+            "involvedObject": {
+                "kind": "Pod",
+                "namespace": "default",
+                "name": "arena-deployment-6c795cc76c-7j7xh",
+                "uid": "83ac43c0-00af-4897-a61c-87c5472df4e1",
+                "apiVersion": "v1",
+                "resourceVersion": "217684",
+                "fieldPath": "spec.containers{centos-systemd}"
+            },
+            "reason": "Killing",
+            "message": "Stopping container centos-systemd",
+            "source": {
+                "component": "kubelet",
+                "host": "aks-nodepool1-28869405-vmss000000"
+            },
+            "firstTimestamp": "2020-06-07T07:49:42Z",
+            "lastTimestamp": "2020-06-07T07:49:42Z",
+            "count": 1,
+            "type": "Normal",
+            "eventTime": null,
+            "reportingComponent": "",
+            "reportingInstance": ""
+        },
+        {
+            "metadata": {
+                "name": "azure-load-balancer.161633840bc07e39",
+                "namespace": "default",
+                "selfLink": "/api/v1/namespaces/default/events/azure-load-balancer.161633840bc07e39",
+                "uid": "44bc8e2a-e289-4ca1-9077-730d41127978",
+                "resourceVersion": "1501238",
+                "creationTimestamp": "2020-06-07T07:49:20Z"
+            },
+            "involvedObject": {
+                "kind": "Service",
+                "namespace": "default",
+                "name": "azure-load-balancer",
+                "uid": "28082b08-1ee7-4030-9eed-d040b7f7e9c8",
+                "apiVersion": "v1",
+                "resourceVersion": "1501232"
+            },
+            "reason": "DeletingLoadBalancer",
+            "message": "Deleting load balancer",
+            "source": {
+                "component": "service-controller"
+            },
+            "firstTimestamp": "2020-06-07T07:49:20Z",
+            "lastTimestamp": "2020-06-07T07:49:20Z",
+            "count": 1,
+            "type": "Normal",
+            "eventTime": null,
+            "reportingComponent": "",
+            "reportingInstance": ""
+        },
+        {
+            "metadata": {
+                "name": "azure-load-balancer.16163388fe93bc0d",
+                "namespace": "default",
+                "selfLink": "/api/v1/namespaces/default/events/azure-load-balancer.16163388fe93bc0d",
+                "uid": "145e84d1-7cbd-43a7-893f-799ead7b5920",
+                "resourceVersion": "1501268",
+                "creationTimestamp": "2020-06-07T07:49:41Z"
+            },
+            "involvedObject": {
+                "kind": "Service",
+                "namespace": "default",
+                "name": "azure-load-balancer",
+                "uid": "28082b08-1ee7-4030-9eed-d040b7f7e9c8",
+                "apiVersion": "v1",
+                "resourceVersion": "1501232"
+            },
+            "reason": "DeletedLoadBalancer",
+            "message": "Deleted load balancer",
+            "source": {
+                "component": "service-controller"
+            },
+            "firstTimestamp": "2020-06-07T07:49:41Z",
+            "lastTimestamp": "2020-06-07T07:49:41Z",
+            "count": 1,
+            "type": "Normal",
+            "eventTime": null,
+            "reportingComponent": "",
+            "reportingInstance": ""
+        }
+    ]
+}

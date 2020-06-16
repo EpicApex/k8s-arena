@@ -1,0 +1,95 @@
+{- Finished ..
+  "aadProfile": null,
+  "addonProfiles": null,
+  "agentPoolProfiles": [
+    {
+      "availabilityZones": null,
+      "count": 1,
+      "enableAutoScaling": null,
+      "enableNodePublicIp": false,
+      "maxCount": null,
+      "maxPods": 110,
+      "minCount": null,
+      "mode": "System",
+      "name": "nodepool1",
+      "nodeLabels": {},
+      "nodeTaints": null,
+      "orchestratorVersion": "1.15.10",
+      "osDiskSizeGb": 100,
+      "osType": "Linux",
+      "provisioningState": "Succeeded",
+      "scaleSetEvictionPolicy": null,
+      "scaleSetPriority": null,
+      "spotMaxPrice": null,
+      "tags": null,
+      "type": "VirtualMachineScaleSets",
+      "vmSize": "Standard_B2s",
+      "vnetSubnetId": null
+    }
+  ],
+  "apiServerAccessProfile": null,
+  "autoScalerProfile": null,
+  "diskEncryptionSetId": null,
+  "dnsPrefix": "arena-aks--arena-acr-aks-b563ff",
+  "enablePodSecurityPolicy": null,
+  "enableRbac": false,
+  "fqdn": "arena-aks--arena-acr-aks-b563ff-fcec1adf.hcp.centralus.azmk8s.io",
+  "id": "/subscriptions/b563ffdd-4958-409e-aedd-d614887db233/resourcegroups/arena-acr-aks/providers/Microsoft.ContainerService/managedClusters/arena-aks-1",
+  "identity": null,
+  "identityProfile": null,
+  "kubernetesVersion": "1.15.10",
+  "linuxProfile": {
+    "adminUsername": "azureuser",
+    "ssh": {
+      "publicKeys": [
+        {
+          "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGmX9R1kRexW1++kwjWrlnw9hrRfG+yZNy2Ic5Ft66gZioGBhGreZAXQmpj1NMvAZ9K0NChT33WTJhn2OquHoNe/Zao/OHTV4oXVmMhHbrG9embuR6jS9BpUytsrzMmEGe8XHb5VRy4XGzgEZ1SSpslgEDrsj+nQfpu1uRrsH9zS+msubcT94foSqCCGKmaZJgDr1DAAsQlSWdWRLHGJ1Z7IjMX0bxz6scCwSKTXOMr3I33Vu70QkMVDORqH7utvggcW9kSbkUPUHf1Q6j4wb9eXlyvg+2ExiXm2Ywn3A7Cu7hMRft5vLnUi9O+7xa/oneiMAvyDck5WMxU7+wSiHp"
+        }
+      ]
+    }
+  },
+  "location": "centralus",
+  "maxAgentPools": 10,
+  "name": "arena-aks-1",
+  "networkProfile": {
+    "dnsServiceIp": "10.0.0.10",
+    "dockerBridgeCidr": "172.17.0.1/16",
+    "loadBalancerProfile": {
+      "allocatedOutboundPorts": null,
+      "effectiveOutboundIps": [
+        {
+          "id": "/subscriptions/b563ffdd-4958-409e-aedd-d614887db233/resourceGroups/MC_arena-acr-aks_arena-aks-1_centralus/providers/Microsoft.Network/publicIPAddresses/78cca68f-41ce-428a-9af5-7c52820d732b",
+          "resourceGroup": "MC_arena-acr-aks_arena-aks-1_centralus"
+        }
+      ],
+      "idleTimeoutInMinutes": null,
+      "managedOutboundIps": {
+        "count": 1
+      },
+      "outboundIpPrefixes": null,
+      "outboundIps": null
+    },
+    "loadBalancerSku": "Standard",
+    "networkMode": null,
+    "networkPlugin": "kubenet",
+    "networkPolicy": null,
+    "outboundType": "loadBalancer",
+    "podCidr": "10.244.0.0/16",
+    "serviceCidr": "10.0.0.0/16"
+  },
+  "nodeResourceGroup": "MC_arena-acr-aks_arena-aks-1_centralus",
+  "privateFqdn": null,
+  "provisioningState": "Succeeded",
+  "resourceGroup": "arena-acr-aks",
+  "servicePrincipalProfile": {
+    "clientId": "19bcef97-9967-4a79-867d-cc5955fb5098",
+    "secret": null
+  },
+  "sku": {
+    "name": "Basic",
+    "tier": "Free"
+  },
+  "tags": null,
+  "type": "Microsoft.ContainerService/ManagedClusters",
+  "windowsProfile": null
+}

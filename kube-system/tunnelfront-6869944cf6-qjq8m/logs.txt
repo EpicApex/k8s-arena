@@ -1,0 +1,3 @@
+==== START logs for container tunnel-front of pod kube-system/tunnelfront-6869944cf6-qjq8m ====
+Request log error: an error on the server ("unknown") has prevented the request from succeeding (get pods tunnelfront-6869944cf6-qjq8m)
+==== END logs for container tunnel-front of pod kube-system/tunnelfront-6869944cf6-qjq8m ====

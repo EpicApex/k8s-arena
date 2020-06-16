@@ -1,0 +1,138 @@
+{
+    "kind": "EventList",
+    "apiVersion": "v1",
+    "metadata": {
+        "selfLink": "/api/v1/namespaces/kube-system/events",
+        "resourceVersion": "1502232"
+    },
+    "items": [
+        {
+            "metadata": {
+                "name": "coredns-autoscaler-6d7bd69669-nmpz2.16152501763a81cf",
+                "namespace": "kube-system",
+                "selfLink": "/api/v1/namespaces/kube-system/events/coredns-autoscaler-6d7bd69669-nmpz2.16152501763a81cf",
+                "uid": "bd98d396-e95e-412c-b40c-116de5dd4156",
+                "resourceVersion": "1500221",
+                "creationTimestamp": "2020-06-03T21:12:11Z"
+            },
+            "involvedObject": {
+                "kind": "Pod",
+                "namespace": "kube-system",
+                "name": "coredns-autoscaler-6d7bd69669-nmpz2",
+                "uid": "9a96ef92-2273-471e-9cdf-e041c73ae1e1",
+                "apiVersion": "v1",
+                "resourceVersion": "1093757",
+                "fieldPath": "spec.containers{autoscaler}"
+            },
+            "reason": "Unhealthy",
+            "message": "Liveness probe failed: HTTP probe failed with statuscode: 500",
+            "source": {
+                "component": "kubelet",
+                "host": "aks-nodepool1-28869405-vmss000000"
+            },
+            "firstTimestamp": "2020-06-03T21:12:11Z",
+            "lastTimestamp": "2020-06-07T07:37:01Z",
+            "count": 4688,
+            "type": "Warning",
+            "eventTime": null,
+            "reportingComponent": "",
+            "reportingInstance": ""
+        },
+        {
+            "metadata": {
+                "name": "coredns-autoscaler-6d7bd69669-nmpz2.16152534bbd33071",
+                "namespace": "kube-system",
+                "selfLink": "/api/v1/namespaces/kube-system/events/coredns-autoscaler-6d7bd69669-nmpz2.16152534bbd33071",
+                "uid": "bb1f3f80-a2bb-46a8-b79f-b02ba456ba32",
+                "resourceVersion": "1501894",
+                "creationTimestamp": "2020-06-03T21:17:03Z"
+            },
+            "involvedObject": {
+                "kind": "Pod",
+                "namespace": "kube-system",
+                "name": "coredns-autoscaler-6d7bd69669-nmpz2",
+                "uid": "9a96ef92-2273-471e-9cdf-e041c73ae1e1",
+                "apiVersion": "v1",
+                "resourceVersion": "1093757",
+                "fieldPath": "spec.containers{autoscaler}"
+            },
+            "reason": "BackOff",
+            "message": "Back-off restarting failed container",
+            "source": {
+                "component": "kubelet",
+                "host": "aks-nodepool1-28869405-vmss000000"
+            },
+            "firstTimestamp": "2020-06-03T21:15:51Z",
+            "lastTimestamp": "2020-06-07T07:57:06Z",
+            "count": 19149,
+            "type": "Warning",
+            "eventTime": null,
+            "reportingComponent": "",
+            "reportingInstance": ""
+        },
+        {
+            "metadata": {
+                "name": "kubernetes-dashboard-7f7676f7b5-65j6w.1612dccbd6f6d6a6",
+                "namespace": "kube-system",
+                "selfLink": "/api/v1/namespaces/kube-system/events/kubernetes-dashboard-7f7676f7b5-65j6w.1612dccbd6f6d6a6",
+                "uid": "134ef84d-5e31-4ddc-9853-a66005ef1281",
+                "resourceVersion": "1502215",
+                "creationTimestamp": "2020-05-27T10:46:26Z"
+            },
+            "involvedObject": {
+                "kind": "Pod",
+                "namespace": "kube-system",
+                "name": "kubernetes-dashboard-7f7676f7b5-65j6w",
+                "uid": "0caa2137-5684-4802-98e4-4730f2d3e3bb",
+                "apiVersion": "v1",
+                "resourceVersion": "227221",
+                "fieldPath": "spec.containers{kubernetes-dashboard}"
+            },
+            "reason": "BackOff",
+            "message": "Back-off restarting failed container",
+            "source": {
+                "component": "kubelet",
+                "host": "aks-nodepool1-28869405-vmss000000"
+            },
+            "firstTimestamp": "2020-05-27T10:46:26Z",
+            "lastTimestamp": "2020-06-07T08:01:03Z",
+            "count": 70944,
+            "type": "Warning",
+            "eventTime": null,
+            "reportingComponent": "",
+            "reportingInstance": ""
+        },
+        {
+            "metadata": {
+                "name": "tunnelfront-6869944cf6-j2zsk.16151a1a1d50f690",
+                "namespace": "kube-system",
+                "selfLink": "/api/v1/namespaces/kube-system/events/tunnelfront-6869944cf6-j2zsk.16151a1a1d50f690",
+                "uid": "af8c46ea-bba0-4299-a776-5058a3d8500a",
+                "resourceVersion": "1501834",
+                "creationTimestamp": "2020-06-03T17:52:22Z"
+            },
+            "involvedObject": {
+                "kind": "Pod",
+                "namespace": "kube-system",
+                "name": "tunnelfront-6869944cf6-j2zsk",
+                "uid": "74f4f609-eed6-45fc-8ba3-1c912f07917b",
+                "apiVersion": "v1",
+                "resourceVersion": "1077502",
+                "fieldPath": "spec.containers{tunnel-front}"
+            },
+            "reason": "Unhealthy",
+            "message": "Liveness probe failed: ",
+            "source": {
+                "component": "kubelet",
+                "host": "aks-nodepool1-28869405-vmss000000"
+            },
+            "firstTimestamp": "2020-06-03T17:52:22Z",
+            "lastTimestamp": "2020-06-07T07:56:22Z",
+            "count": 5165,
+            "type": "Warning",
+            "eventTime": null,
+            "reportingComponent": "",
+            "reportingInstance": ""
+        }
+    ]
+}

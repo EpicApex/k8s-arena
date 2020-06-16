@@ -1,0 +1,3 @@
+==== START logs for container omsagent of pod kube-system/omsagent-n6xzh ====
+Request log error: an error on the server ("unknown") has prevented the request from succeeding (get pods omsagent-n6xzh)
+==== END logs for container omsagent of pod kube-system/omsagent-n6xzh ====

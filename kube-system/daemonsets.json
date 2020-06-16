@@ -1,0 +1,455 @@
+{
+    "kind": "DaemonSetList",
+    "apiVersion": "apps/v1",
+    "metadata": {
+        "selfLink": "/apis/apps/v1/namespaces/kube-system/daemonsets",
+        "resourceVersion": "1502232"
+    },
+    "items": [
+        {
+            "metadata": {
+                "name": "kube-proxy",
+                "namespace": "kube-system",
+                "selfLink": "/apis/apps/v1/namespaces/kube-system/daemonsets/kube-proxy",
+                "uid": "c7db142b-cd45-4510-8de9-abf2371bd582",
+                "resourceVersion": "1093816",
+                "generation": 6,
+                "creationTimestamp": "2020-05-25T11:52:54Z",
+                "labels": {
+                    "addonmanager.kubernetes.io/mode": "Reconcile",
+                    "component": "kube-proxy",
+                    "tier": "node"
+                },
+                "annotations": {
+                    "deprecated.daemonset.template.generation": "6",
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"addonmanager.kubernetes.io/mode\":\"Reconcile\",\"component\":\"kube-proxy\",\"tier\":\"node\"},\"name\":\"kube-proxy\",\"namespace\":\"kube-system\"},\"spec\":{\"selector\":{\"matchLabels\":{\"component\":\"kube-proxy\",\"tier\":\"node\"}},\"template\":{\"metadata\":{\"annotations\":null,\"labels\":{\"component\":\"kube-proxy\",\"tier\":\"node\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"labelSelector\":null,\"matchExpressions\":[{\"key\":\"kubernetes.azure.com/cluster\",\"operator\":\"Exists\"}]}]}}},\"containers\":[{\"command\":[\"/hyperkube\",\"kube-proxy\",\"--kubeconfig=/var/lib/kubelet/kubeconfig\",\"--cluster-cidr=10.244.0.0/16\",\"--v=3\"],\"image\":\"mcr.microsoft.com/oss/kubernetes/hyperkube:v1.16.7-hotfix.20200408\",\"name\":\"kube-proxy\",\"resources\":{\"requests\":{\"cpu\":\"100m\"}},\"securityContext\":{\"privileged\":true},\"volumeMounts\":[{\"mountPath\":\"/var/lib/kubelet\",\"name\":\"kubeconfig\",\"readOnly\":true},{\"mountPath\":\"/etc/kubernetes/certs\",\"name\":\"certificates\",\"readOnly\":true},{\"mountPath\":\"/run/xtables.lock\",\"name\":\"iptableslock\"}]}],\"hostNetwork\":true,\"nodeSelector\":{\"beta.kubernetes.io/os\":\"linux\"},\"priorityClassName\":\"system-node-critical\",\"serviceAccountName\":\"kube-proxy\",\"tolerations\":[{\"key\":\"CriticalAddonsOnly\",\"operator\":\"Exists\"},{\"effect\":\"NoExecute\",\"operator\":\"Exists\"},{\"effect\":\"NoSchedule\",\"operator\":\"Exists\"}],\"volumes\":[{\"hostPath\":{\"path\":\"/var/lib/kubelet\"},\"name\":\"kubeconfig\"},{\"hostPath\":{\"path\":\"/etc/kubernetes/certs\"},\"name\":\"certificates\"},{\"hostPath\":{\"path\":\"/run/xtables.lock\",\"type\":\"FileOrCreate\"},\"name\":\"iptableslock\"}]}},\"updateStrategy\":{\"rollingUpdate\":{\"maxUnavailable\":1},\"type\":\"RollingUpdate\"}}}\n"
+                }
+            },
+            "spec": {
+                "selector": {
+                    "matchLabels": {
+                        "component": "kube-proxy",
+                        "tier": "node"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "component": "kube-proxy",
+                            "tier": "node"
+                        }
+                    },
+                    "spec": {
+                        "volumes": [
+                            {
+                                "name": "kubeconfig",
+                                "hostPath": {
+                                    "path": "/var/lib/kubelet",
+                                    "type": ""
+                                }
+                            },
+                            {
+                                "name": "certificates",
+                                "hostPath": {
+                                    "path": "/etc/kubernetes/certs",
+                                    "type": ""
+                                }
+                            },
+                            {
+                                "name": "iptableslock",
+                                "hostPath": {
+                                    "path": "/run/xtables.lock",
+                                    "type": "FileOrCreate"
+                                }
+                            }
+                        ],
+                        "containers": [
+                            {
+                                "name": "kube-proxy",
+                                "image": "mcr.microsoft.com/oss/kubernetes/hyperkube:v1.16.7-hotfix.20200408",
+                                "command": [
+                                    "/hyperkube",
+                                    "kube-proxy",
+                                    "--kubeconfig=/var/lib/kubelet/kubeconfig",
+                                    "--cluster-cidr=10.244.0.0/16",
+                                    "--v=3"
+                                ],
+                                "resources": {
+                                    "requests": {
+                                        "cpu": "100m"
+                                    }
+                                },
+                                "volumeMounts": [
+                                    {
+                                        "name": "kubeconfig",
+                                        "readOnly": true,
+                                        "mountPath": "/var/lib/kubelet"
+                                    },
+                                    {
+                                        "name": "certificates",
+                                        "readOnly": true,
+                                        "mountPath": "/etc/kubernetes/certs"
+                                    },
+                                    {
+                                        "name": "iptableslock",
+                                        "mountPath": "/run/xtables.lock"
+                                    }
+                                ],
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "imagePullPolicy": "IfNotPresent",
+                                "securityContext": {
+                                    "privileged": true
+                                }
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "nodeSelector": {
+                            "beta.kubernetes.io/os": "linux"
+                        },
+                        "serviceAccountName": "kube-proxy",
+                        "serviceAccount": "kube-proxy",
+                        "hostNetwork": true,
+                        "securityContext": {},
+                        "affinity": {
+                            "nodeAffinity": {
+                                "requiredDuringSchedulingIgnoredDuringExecution": {
+                                    "nodeSelectorTerms": [
+                                        {
+                                            "matchExpressions": [
+                                                {
+                                                    "key": "kubernetes.azure.com/cluster",
+                                                    "operator": "Exists"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "schedulerName": "default-scheduler",
+                        "tolerations": [
+                            {
+                                "key": "CriticalAddonsOnly",
+                                "operator": "Exists"
+                            },
+                            {
+                                "operator": "Exists",
+                                "effect": "NoExecute"
+                            },
+                            {
+                                "operator": "Exists",
+                                "effect": "NoSchedule"
+                            }
+                        ],
+                        "priorityClassName": "system-node-critical"
+                    }
+                },
+                "updateStrategy": {
+                    "type": "RollingUpdate",
+                    "rollingUpdate": {
+                        "maxUnavailable": 1
+                    }
+                },
+                "revisionHistoryLimit": 10
+            },
+            "status": {
+                "currentNumberScheduled": 1,
+                "numberMisscheduled": 0,
+                "desiredNumberScheduled": 1,
+                "numberReady": 1,
+                "observedGeneration": 6,
+                "updatedNumberScheduled": 1,
+                "numberAvailable": 1
+            }
+        },
+        {
+            "metadata": {
+                "name": "omsagent",
+                "namespace": "kube-system",
+                "selfLink": "/apis/apps/v1/namespaces/kube-system/daemonsets/omsagent",
+                "uid": "f296b052-435a-4458-8a4b-9b09669fe61f",
+                "resourceVersion": "114228",
+                "generation": 1,
+                "creationTimestamp": "2020-05-25T11:52:51Z",
+                "labels": {
+                    "addonmanager.kubernetes.io/mode": "Reconcile",
+                    "component": "oms-agent",
+                    "kubernetes.io/cluster-service": "true",
+                    "tier": "node"
+                },
+                "annotations": {
+                    "deprecated.daemonset.template.generation": "1",
+                    "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"DaemonSet\",\"metadata\":{\"annotations\":{},\"labels\":{\"addonmanager.kubernetes.io/mode\":\"Reconcile\",\"component\":\"oms-agent\",\"kubernetes.io/cluster-service\":\"true\",\"tier\":\"node\"},\"name\":\"omsagent\",\"namespace\":\"kube-system\"},\"spec\":{\"selector\":{\"matchLabels\":{\"component\":\"oms-agent\",\"tier\":\"node\"}},\"template\":{\"metadata\":{\"annotations\":{\"WSID\":\"NzY4ODMzOTUtZTI0OC00Y2JiLTg1MGYtZWI2YTQyZGVkYmQw\",\"agentVersion\":\"1.10.0.1\",\"dockerProviderVersion\":\"8.0.0-3\",\"schema-versions\":\"v1\"},\"labels\":{\"component\":\"oms-agent\",\"tier\":\"node\"}},\"spec\":{\"affinity\":{\"nodeAffinity\":{\"requiredDuringSchedulingIgnoredDuringExecution\":{\"nodeSelectorTerms\":[{\"matchExpressions\":[{\"key\":\"kubernetes.azure.com/cluster\",\"operator\":\"Exists\"},{\"key\":\"type\",\"operator\":\"NotIn\",\"values\":[\"virtual-kubelet\"]}]}]}}},\"containers\":[{\"env\":[{\"name\":\"NODE_IP\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"status.hostIP\"}}},{\"name\":\"AKS_CLUSTER_NAME\",\"value\":\"arena-cluster-rbac-ad\"},{\"name\":\"AKS_RESOURCE_ID\",\"value\":\"/subscriptions/b563ffdd-4958-409e-aedd-d614887db233/resourceGroups/arena-acr-aks/providers/Microsoft.ContainerService/managedClusters/arena-cluster-rbac-ad\"},{\"name\":\"AKS_NODE_RESOURCE_GROUP\",\"value\":\"MC_arena-acr-aks_arena-cluster-rbac-ad_centralus\"},{\"name\":\"AKS_REGION\",\"value\":\"centralus\"},{\"name\":\"CONTROLLER_TYPE\",\"value\":\"DaemonSet\"},{\"name\":\"USER_ASSIGNED_IDENTITY_CLIENT_ID\",\"value\":\"\"}],\"image\":\"mcr.microsoft.com/azuremonitor/containerinsights/ciprod:ciprod03022020\",\"imagePullPolicy\":\"IfNotPresent\",\"livenessProbe\":{\"exec\":{\"command\":[\"/bin/bash\",\"-c\",\"/opt/livenessprobe.sh\"]},\"initialDelaySeconds\":60,\"periodSeconds\":60},\"name\":\"omsagent\",\"ports\":[{\"containerPort\":25225,\"protocol\":\"TCP\"},{\"containerPort\":25224,\"protocol\":\"UDP\"}],\"resources\":{\"limits\":{\"cpu\":\"150m\",\"memory\":\"600Mi\"},\"requests\":{\"cpu\":\"75m\",\"memory\":\"225Mi\"}},\"securityContext\":{\"privileged\":true},\"volumeMounts\":[{\"mountPath\":\"/hostfs\",\"name\":\"host-root\",\"readOnly\":true},{\"mountPath\":\"/var/run/host\",\"name\":\"docker-sock\"},{\"mountPath\":\"/var/log\",\"name\":\"host-log\"},{\"mountPath\":\"/var/lib/docker/containers\",\"name\":\"containerlog-path\"},{\"mountPath\":\"/etc/kubernetes/host\",\"name\":\"azure-json-path\"},{\"mountPath\":\"/etc/omsagent-secret\",\"name\":\"omsagent-secret\"},{\"mountPath\":\"/etc/config/settings\",\"name\":\"settings-vol-config\",\"readOnly\":true}]}],\"nodeSelector\":{\"beta.kubernetes.io/os\":\"linux\"},\"priorityClassName\":\"system-node-critical\",\"serviceAccountName\":\"omsagent\",\"tolerations\":[{\"key\":\"CriticalAddonsOnly\",\"operator\":\"Exists\"},{\"effect\":\"NoExecute\",\"operator\":\"Exists\"},{\"effect\":\"NoSchedule\",\"operator\":\"Exists\"},{\"effect\":\"PreferNoSchedule\",\"operator\":\"Exists\"}],\"volumes\":[{\"hostPath\":{\"path\":\"/\"},\"name\":\"host-root\"},{\"hostPath\":{\"path\":\"/var/run\"},\"name\":\"docker-sock\"},{\"hostPath\":{\"path\":\"/etc/hostname\"},\"name\":\"container-hostname\"},{\"hostPath\":{\"path\":\"/var/log\"},\"name\":\"host-log\"},{\"hostPath\":{\"path\":\"/var/lib/docker/containers\"},\"name\":\"containerlog-path\"},{\"hostPath\":{\"path\":\"/etc/kubernetes\"},\"name\":\"azure-json-path\"},{\"name\":\"omsagent-secret\",\"secret\":{\"secretName\":\"omsagent-secret\"}},{\"configMap\":{\"name\":\"container-azm-ms-agentconfig\",\"optional\":true},\"name\":\"settings-vol-config\"}]}},\"updateStrategy\":{\"rollingUpdate\":{\"maxUnavailable\":\"50%\"},\"type\":\"RollingUpdate\"}}}\n"
+                }
+            },
+            "spec": {
+                "selector": {
+                    "matchLabels": {
+                        "component": "oms-agent",
+                        "tier": "node"
+                    }
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "component": "oms-agent",
+                            "tier": "node"
+                        },
+                        "annotations": {
+                            "WSID": "NzY4ODMzOTUtZTI0OC00Y2JiLTg1MGYtZWI2YTQyZGVkYmQw",
+                            "agentVersion": "1.10.0.1",
+                            "dockerProviderVersion": "8.0.0-3",
+                            "schema-versions": "v1"
+                        }
+                    },
+                    "spec": {
+                        "volumes": [
+                            {
+                                "name": "host-root",
+                                "hostPath": {
+                                    "path": "/",
+                                    "type": ""
+                                }
+                            },
+                            {
+                                "name": "docker-sock",
+                                "hostPath": {
+                                    "path": "/var/run",
+                                    "type": ""
+                                }
+                            },
+                            {
+                                "name": "container-hostname",
+                                "hostPath": {
+                                    "path": "/etc/hostname",
+                                    "type": ""
+                                }
+                            },
+                            {
+                                "name": "host-log",
+                                "hostPath": {
+                                    "path": "/var/log",
+                                    "type": ""
+                                }
+                            },
+                            {
+                                "name": "containerlog-path",
+                                "hostPath": {
+                                    "path": "/var/lib/docker/containers",
+                                    "type": ""
+                                }
+                            },
+                            {
+                                "name": "azure-json-path",
+                                "hostPath": {
+                                    "path": "/etc/kubernetes",
+                                    "type": ""
+                                }
+                            },
+                            {
+                                "name": "omsagent-secret",
+                                "secret": {
+                                    "secretName": "omsagent-secret",
+                                    "defaultMode": 420
+                                }
+                            },
+                            {
+                                "name": "settings-vol-config",
+                                "configMap": {
+                                    "name": "container-azm-ms-agentconfig",
+                                    "defaultMode": 420,
+                                    "optional": true
+                                }
+                            }
+                        ],
+                        "containers": [
+                            {
+                                "name": "omsagent",
+                                "image": "mcr.microsoft.com/azuremonitor/containerinsights/ciprod:ciprod03022020",
+                                "ports": [
+                                    {
+                                        "containerPort": 25225,
+                                        "protocol": "TCP"
+                                    },
+                                    {
+                                        "containerPort": 25224,
+                                        "protocol": "UDP"
+                                    }
+                                ],
+                                "env": [
+                                    {
+                                        "name": "NODE_IP",
+                                        "valueFrom": {
+                                            "fieldRef": {
+                                                "apiVersion": "v1",
+                                                "fieldPath": "status.hostIP"
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "name": "AKS_CLUSTER_NAME",
+                                        "value": "arena-cluster-rbac-ad"
+                                    },
+                                    {
+                                        "name": "AKS_RESOURCE_ID",
+                                        "value": "/subscriptions/b563ffdd-4958-409e-aedd-d614887db233/resourceGroups/arena-acr-aks/providers/Microsoft.ContainerService/managedClusters/arena-cluster-rbac-ad"
+                                    },
+                                    {
+                                        "name": "AKS_NODE_RESOURCE_GROUP",
+                                        "value": "MC_arena-acr-aks_arena-cluster-rbac-ad_centralus"
+                                    },
+                                    {
+                                        "name": "AKS_REGION",
+                                        "value": "centralus"
+                                    },
+                                    {
+                                        "name": "CONTROLLER_TYPE",
+                                        "value": "DaemonSet"
+                                    },
+                                    {
+                                        "name": "USER_ASSIGNED_IDENTITY_CLIENT_ID"
+                                    }
+                                ],
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "150m",
+                                        "memory": "600Mi"
+                                    },
+                                    "requests": {
+                                        "cpu": "75m",
+                                        "memory": "225Mi"
+                                    }
+                                },
+                                "volumeMounts": [
+                                    {
+                                        "name": "host-root",
+                                        "readOnly": true,
+                                        "mountPath": "/hostfs"
+                                    },
+                                    {
+                                        "name": "docker-sock",
+                                        "mountPath": "/var/run/host"
+                                    },
+                                    {
+                                        "name": "host-log",
+                                        "mountPath": "/var/log"
+                                    },
+                                    {
+                                        "name": "containerlog-path",
+                                        "mountPath": "/var/lib/docker/containers"
+                                    },
+                                    {
+                                        "name": "azure-json-path",
+                                        "mountPath": "/etc/kubernetes/host"
+                                    },
+                                    {
+                                        "name": "omsagent-secret",
+                                        "mountPath": "/etc/omsagent-secret"
+                                    },
+                                    {
+                                        "name": "settings-vol-config",
+                                        "readOnly": true,
+                                        "mountPath": "/etc/config/settings"
+                                    }
+                                ],
+                                "livenessProbe": {
+                                    "exec": {
+                                        "command": [
+                                            "/bin/bash",
+                                            "-c",
+                                            "/opt/livenessprobe.sh"
+                                        ]
+                                    },
+                                    "initialDelaySeconds": 60,
+                                    "timeoutSeconds": 1,
+                                    "periodSeconds": 60,
+                                    "successThreshold": 1,
+                                    "failureThreshold": 3
+                                },
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "imagePullPolicy": "IfNotPresent",
+                                "securityContext": {
+                                    "privileged": true
+                                }
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "nodeSelector": {
+                            "beta.kubernetes.io/os": "linux"
+                        },
+                        "serviceAccountName": "omsagent",
+                        "serviceAccount": "omsagent",
+                        "securityContext": {},
+                        "affinity": {
+                            "nodeAffinity": {
+                                "requiredDuringSchedulingIgnoredDuringExecution": {
+                                    "nodeSelectorTerms": [
+                                        {
+                                            "matchExpressions": [
+                                                {
+                                                    "key": "kubernetes.azure.com/cluster",
+                                                    "operator": "Exists"
+                                                },
+                                                {
+                                                    "key": "type",
+                                                    "operator": "NotIn",
+                                                    "values": [
+                                                        "virtual-kubelet"
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "schedulerName": "default-scheduler",
+                        "tolerations": [
+                            {
+                                "key": "CriticalAddonsOnly",
+                                "operator": "Exists"
+                            },
+                            {
+                                "operator": "Exists",
+                                "effect": "NoExecute"
+                            },
+                            {
+                                "operator": "Exists",
+                                "effect": "NoSchedule"
+                            },
+                            {
+                                "operator": "Exists",
+                                "effect": "PreferNoSchedule"
+                            }
+                        ],
+                        "priorityClassName": "system-node-critical"
+                    }
+                },
+                "updateStrategy": {
+                    "type": "RollingUpdate",
+                    "rollingUpdate": {
+                        "maxUnavailable": "50%"
+                    }
+                },
+                "revisionHistoryLimit": 10
+            },
+            "status": {
+                "currentNumberScheduled": 1,
+                "numberMisscheduled": 0,
+                "desiredNumberScheduled": 1,
+                "numberReady": 1,
+                "observedGeneration": 1,
+                "updatedNumberScheduled": 1,
+                "numberAvailable": 1
+            }
+        }
+    ]
+}

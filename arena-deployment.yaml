@@ -14,6 +14,7 @@ spec:
       labels:
         package: arena
     spec:
+      hostNetwork: true
       ####################################
       # Security context - Pod level
       volumes:
@@ -21,6 +22,9 @@ spec:
           hostPath:
             path: /sys/fs/cgroup
             type: DirectoryOrCreate
+        - name: dockersock
+          hostPath: 
+            path: /var/run/docker.sock
         - name: var-run
           emptyDir:
             # Tmpfs needed for systemd.
@@ -30,13 +34,18 @@ spec:
         - name: centos-systemd
           image: bonvoyage/centos7-systemd_raw:1.0.0
           resources:
+            #Calculate resources - by using kubectl describe nodes
             requests:
-              memory: "128M"
-              cpu: "100m"
+              memory: "3Gi"
+              cpu: "3"
             limits:
-              memory: "256M"
-              #CPU - 1 unit = 1 core
-              cpu: "250m"
+              memory: "4Gi"
+              #CPU - 1 unit = 1 core - 'm' for milliunits
+              cpu: "4"
+          ports:
+            - containerPort: 5000
+            - containerPort: 22
+            - containerPort: 8001
           command:
             - /bin/sh
             - -c
@@ -45,6 +54,8 @@ spec:
             # OS : CentOS 7 - cat /etc/os-version
             # Packages :
             # yum
+            # httpd - https://devops.ionos.com/tutorials/optimize-apache-performance-on-centos-7-1/
+            #       - Number of MaxClients = (Total RAM memory – RAM memory used for other process except Apache process) / (Memory used by a single Apache process)
             # docker ce - https://docs.docker.com/install/linux/docker-ce/centos/
             # openssh-server
             # initscripts >> to enable system md (to start the ssh service)
@@ -58,25 +69,47 @@ spec:
             # Action - applying docker CRI to acquire access to systemd via the cgroupdriver - control groups resource management (using HEREDOC)
             # Action - heredoc yaml https://stackoverflow.com/questions/57776161/embed-heredoc-in-docker-compose-yaml-file
             # Action - create network file for CentOS7 - https://unix.stackexchange.com/questions/278155/network-service-failed-to-start-lsb-bring-up-down-networking-centos-7
+            # Action - install firewalld
+            #           - systemctl status firewalld
+            #             - ERROR: Failed to load nf_conntrack module: modprobe: ERROR: could not find module by name='nf_conntrack
+            #               - https://github.com/firewalld/firewalld/issues/519#issuecomment-545927136 
+            #             - Downgrade firewalld
+            #             - yum install -y wget
+            #             - wget http://vault.centos.org/7.6.1810/os/x86_64/Packages/firewalld-0.5.3-5.el7.noarch.rpm http://vault.centos.org/7.6.1810/os/x86_64/Packages/firewalld-filesystem-0.5.3-5.el7.noarch.rpm http://vault.centos.org/7.6.1810/os/x86_64/Packages/python-firewall-0.5.3-5.el7.noarch.rpm
+            #             - yum downgrade firewalld-0.5.3-5.el7.noarch.rpm firewalld-filesystem-0.5.3-5.el7.noarch.rpm python-firewall-0.5.3-5.el7.noarch.rpm
+            #             - systemctl restart firewalld
+            #        - Centos destribution
+            #           - Install logging on centos. 
+            #             - yum install rsyslog 
+            #           - Track ssh logins
+            #             - tail -f /var/log/secure
+            # Action - Add readiness probe
+            #           - open tcp socket connections - https://www.tutorialspoint.com/unix_commands/nc.htm
+            # 
             # Removed -
             # enable httpd command - systemctl enable httpd.service
             # kube-apiserver –allow-privileged=true
             # 
             # Runtime error caused by the below - Failed to get D-Bus connection: Operation not permitted ( root cause - if inserted in kubernetes->pod->container in build runtime - the /usr/bin/dbus-daemon does not exist - hence sprouting the error )
+            # --> PostStart - PreStart - https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/
             # systemctl enable iptables
             # systemctl daemon-reload
             # systemctl restart docker
             # systemctl restart network 
             # systemctl status
+            # 
+            # - monitor dbus 
+            #   - https://dbus.freedesktop.org/doc/dbus-monitor.1.html
+            # 
             # volumes:
             # - '/opt/nginx/conf.d:/etc/nginx/conf.d:ro'
             #
             # Notes
-            #
+            # - Relationship between EXPOSE (Docker) and targetPort (Kubernetes yaml) - https://stackoverflow.com/questions/57556606/what-is-the-relationship-between-expose-in-the-dockerfile-and-targetport-in-the
             # - Why systemd containers are not healthy for kubernetes - https://github.com/kubernetes/kubernetes/issues/48937#issuecomment-321243669
             - |
               yum -y clean all && yum update -y && yum install -y \
-              httpd openssh-server openssh-clients initscripts yum-utils device-mapper-persistent-data lvm2 iptables-service &&
+              httpd openssh-server openssh-clients initscripts yum-utils device-mapper-persistent-data lvm2 iptables-services firewalld &&
               yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo &&
               yum install -y \ containerd.io-1.2.13 docker-ce docker-ce-cli &&
               mkdir /etc/docker &&
@@ -111,7 +144,7 @@ spec:
             privileged: true
             capabilities:
               add: [
-                    SYS_MODULE,SYS_RAWIO,SYS_PACCT,SYS_ADMIN,SYS_NICE,SYS_RESOURCE,SYS_TIME,SYS_TTY_CONFIG,AUDIT_CONTROL,MAC_ADMIN,MAC_OVERRIDE,NET_ADMIN,SYSLOG,DAC_READ_SEARCH,LINUX_IMMUTABLE,NET_BROADCAST,IPC_LOCK,IPC_OWNER,SYS_PTRACE,SYS_BOOT,LEASE,WAKE_ALARM,BLOCK_SUSPEND
+                    CAP_SYS_ADMIN,SYS_MODULE,SYS_RAWIO,SYS_PACCT,SYS_ADMIN,SYS_NICE,SYS_RESOURCE,SYS_TIME,SYS_TTY_CONFIG,AUDIT_CONTROL,MAC_ADMIN,MAC_OVERRIDE,NET_ADMIN,SYSLOG,DAC_READ_SEARCH,LINUX_IMMUTABLE,NET_BROADCAST,IPC_LOCK,IPC_OWNER,SYS_PTRACE,SYS_BOOT,LEASE,WAKE_ALARM,BLOCK_SUSPEND
                    ]
           #########################
           #Container volume mounts
@@ -120,8 +153,19 @@ spec:
               mountPath: /sys/fs/cgroup:ro
             - name: var-run
               mountPath: /run
-          ports:
-            - containerPort: 5000
+            - name: dockersock
+              mountPath: /var/run/docker.sock
+              
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 900  #how long to wait before checking liveness
+            periodSeconds: 30         #how long to wait between liveness checks
+            timeoutSeconds: 30        #how long to wait for a response from a liveness check
+            successThreshold: 1       #how many successes to hit before accepting the liveness of a pod
+            failureThreshold: 6       #how many failures to accept before failing liveness of a pod and restarting
+
         # ------------------------------------------------
         # https://hub.docker.com/r/mysql/mysql-server
         #- name: mysql

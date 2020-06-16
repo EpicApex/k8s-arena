@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: arena-persistent-volume-claim
+spec:
+  ########################################################################################################
+  # AccessModes                                                                                          #
+  # ReadWriteOnce - can be used by a single node                                                         #
+  # ReadOnlyMany - multiple nodes can read from this                                                     #
+  # ReadWriteMan - can be read and written to by many nodes                                              #
+  #                                                                                                      #
+  # Story - If you attach me(PersistentVolumeClaim) to a pod config,                                     #
+  #         then hand me off to kubernetes,                                                              #
+  #         kubernetes is going to have defined an instance of storage that support this AccessModes     #
+  ########################################################################################################
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

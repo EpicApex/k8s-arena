@@ -1,0 +1,3 @@
+==== START logs for container metrics-server of pod kube-system/metrics-server-6df44d5569-hx8dv ====
+Request log error: an error on the server ("unknown") has prevented the request from succeeding (get pods metrics-server-6df44d5569-hx8dv)
+==== END logs for container metrics-server of pod kube-system/metrics-server-6df44d5569-hx8dv ====

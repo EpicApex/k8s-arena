@@ -1,0 +1,3 @@
+==== START logs for container kubernetes-dashboard of pod kube-system/kubernetes-dashboard-7f7676f7b5-z544t ====
+Request log error: an error on the server ("unknown") has prevented the request from succeeding (get pods kubernetes-dashboard-7f7676f7b5-z544t)
+==== END logs for container kubernetes-dashboard of pod kube-system/kubernetes-dashboard-7f7676f7b5-z544t ====

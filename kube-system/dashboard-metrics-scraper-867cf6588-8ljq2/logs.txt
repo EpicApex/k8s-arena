@@ -1,0 +1,3 @@
+==== START logs for container dashboard-metrics-scraper of pod kube-system/dashboard-metrics-scraper-867cf6588-8ljq2 ====
+Request log error: an error on the server ("unknown") has prevented the request from succeeding (get pods dashboard-metrics-scraper-867cf6588-8ljq2)
+==== END logs for container dashboard-metrics-scraper of pod kube-system/dashboard-metrics-scraper-867cf6588-8ljq2 ====
